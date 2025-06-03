@@ -1,6 +1,8 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Book } from '../../../model/class';
+import { StorageServiceService } from '../../../core/service/storage-service.service';
 
 @Component({
   selector: 'app-view-book-details',
@@ -9,10 +11,32 @@ import { Router } from '@angular/router';
   styleUrl: './view-book-details.component.css'
 })
 export class ViewBookDetailsComponent {
+    book: any;
+books: Book[] = [];
 
-   book: any;
+  cart: Book[] = [];
+addToCart(book: Book): void {
+  const existingBook = this.cart.find(item => item.id === book.id);
 
-  constructor(private router: Router) {
+  if (existingBook) {
+    existingBook.quantity = (existingBook.quantity || 1) + 1;
+    alert(`${book.bookName} quantity increased to ${existingBook.quantity}.`);
+  } else {
+    book.quantity = 1;
+    this.cart.push(book);
+    alert(`${book.bookName} added to cart.`);
+  }
+
+  this.storageService.saveCartItems(this.cart);
+}
+read() {
+  this.router.navigate(['/details']);
+}
+
+ 
+  constructor(private router: Router,
+     private storageService: StorageServiceService
+  ) {
     const nav = this.router.getCurrentNavigation();
     this.book = nav?.extras?.state?.['book'];
   }

@@ -12,10 +12,12 @@ import { UserCartComponent } from './page/user/user-cart/user-cart.component';
 import { FavouriteComponent } from './page/user/favourite/favourite.component';
 import { AdminAddAuthorComponent } from './page/admin/admin-add-author/admin-add-author.component';
 import { UserListComponent } from './page/admin/user-list/user-list/user-list.component';
+import { DetailsComponent } from './page/Vivid/details/details.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+   { path: 'details', component: DetailsComponent },
 
  {
   path: 'user-dashboard',
@@ -28,6 +30,7 @@ export const routes: Routes = [
     { path: 'view-details', component: ViewBookDetailsComponent },
     { path: 'cart', component: UserCartComponent },
     { path: 'favorite-list', component: FavouriteComponent },
+   
     { path: '**', redirectTo: 'user-home'  }
   ]
 },
