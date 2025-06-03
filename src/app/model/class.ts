@@ -1,4 +1,6 @@
 export interface Book {
+  quantity?: number;
+   image: string;
   id: number;
   bookName: string;
   bookIsbnNumber: number;
@@ -16,13 +18,14 @@ export interface Book {
 export class AddBook {
   id: number = 0;
   bookName: string = '';
+   image: string='';
   bookIsbnNumber: number = 0;
   bookPrice: number = 0;
   bookRating: number = 0;
   bookCategory: string = '';
   bookQuantity: number = 1;
   bookAuthorIds: number[] = [];
-
+ 
   // Optional helper for template input (e.g., comma-separated authors)
   bookAuthorIdsString: string = '';
 

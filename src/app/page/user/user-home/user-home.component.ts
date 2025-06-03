@@ -37,16 +37,29 @@ export class UserHomeComponent {
   viewDetails(book: any): void {
     this.router.navigate(['/user-dashboard/view-details'], { state: { book } });
   }
-  addToCart(book: Book): void {
-    if (!this.cart.find((item) => item.id === book.id)) {
-      this.cart.push(book);
-      this.storageService.saveCartItems(this.cart);
-      alert(`${book.bookName} added to cart.`);
-    } else {
-      alert(`${book.bookName} is already in your cart.`);
-    }
+  // addToCart(book: Book): void {
+  //   if (!this.cart.find((item) => item.id === book.id)) {
+  //     this.cart.push(book);
+  //     this.storageService.saveCartItems(this.cart);
+  //     alert(`${book.bookName} added to cart.`);
+  //   } else {
+  //     alert(`${book.bookName} is already in your cart.`);
+  //   }
+  // }
+addToCart(book: Book): void {
+  const existingBook = this.cart.find(item => item.id === book.id);
+
+  if (existingBook) {
+    existingBook.quantity = (existingBook.quantity || 1) + 1;
+    alert(`${book.bookName} quantity increased to ${existingBook.quantity}.`);
+  } else {
+    book.quantity = 1;
+    this.cart.push(book);
+    alert(`${book.bookName} added to cart.`);
   }
 
+  this.storageService.saveCartItems(this.cart);
+}
   addToFavorites(book: any): void {
     const stored = localStorage.getItem('favorites');
     const favorites = stored ? JSON.parse(stored) : [];

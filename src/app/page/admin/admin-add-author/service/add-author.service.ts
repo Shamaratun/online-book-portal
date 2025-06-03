@@ -10,7 +10,7 @@ export class AddAuthorService {
 
     private addAuthorUrl = 'http://localhost:8082/api/admin/add/author';
     private deleteAuthorUrl = 'http://localhost:8082/api/admin/delete/author';
-    private editAuthorUrl = 'http://localhost:8082/api/admin/update/authors';
+    private editAuthorUrl = 'http://localhost:8082/api/admin/update/author';
     private getAllAuthorUrl = 'http://localhost:8082/api/user/get/all/authors';
 
     constructor(private http: HttpClient) { }

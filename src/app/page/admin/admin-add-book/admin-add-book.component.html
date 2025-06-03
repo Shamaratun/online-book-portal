@@ -41,11 +41,11 @@
             />
           </div> -->
 
-          <!-- image  copy   <div class="mb-3">
-          <label for="image" class="form-label">Image URL:</label>
-          <input type="text" id="image" [(ngModel)]="book.image" name="image" class="form-control"
-            placeholder="Enter image URL" />
-        </div> -->
+          <div class="mb-3">
+            <label for="image" class="form-label">Image URL:</label>
+            <input type="text" id="image" [(ngModel)]="book.image" name="image" class="form-control"
+              placeholder="Enter image URL" />
+          </div>
           <!-- Price -->
           <div class="col-md-6">
             <label for="bookPrice" class="form-label fw-semibold">PRICE (BDT)</label>
@@ -123,7 +123,7 @@
         <th>Name</th>
         <th>ISBN</th>
         <!-- <th>Author Name</th> -->
-        <!-- <th>Image</th> -->
+        <th>Image</th>
         <th>Price</th>
         <th>Rating</th>
         <th>Category</th>
@@ -138,7 +138,10 @@
         <td>{{ b.bookName }}</td>
         <td>{{ b.bookIsbnNumber }}</td>
         <!-- <td>{{ b.AuthorName}}</td> -->
-        <!-- <td>{{ b.bookImage }}</td> -->
+        <td>
+          <img [src]="b.image" alt="Book Image" width="80" height="100" *ngIf="b.image; else noImage" />
+          <ng-template #noImage><span class="text-muted">No image</span></ng-template>
+        </td>
         <td>{{ b.bookPrice }}</td>
         <td>{{ b.bookRating }}</td>
         <td>{{ b.bookCategory }}</td>

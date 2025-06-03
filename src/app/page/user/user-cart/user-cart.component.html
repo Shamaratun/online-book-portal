@@ -2,10 +2,10 @@
   <h2>Your Cart</h2>
 <!--  [(ngModel)]="userId"/ customerName
   <div class="mb-3">
-    <label for="customerName" class="form-label">Customer Name:</label>
-    <input type="text" id="customerName" [(ngModel)]="userId" name="customerName" required class="form-control"
-      placeholder="Enter your name" />
-  </div> -->
+    <label for="customerName" class="form-label"> Customer Name:</label>
+    <input type="text" id="customerName" [(ngModel)]="order.customerName" name="customerName" required class="form-control"
+      placeholder="Enter Your name" />
+  </div>-->
   <div *ngIf="cartItems.length === 0">
     <p>Your cart is empty.</p>
   </div>
@@ -24,7 +24,13 @@
         <tr *ngFor="let item of cartItems; let i = index">
           <td>{{ item.bookName }}</td>
           <td>₹{{ item.bookPrice }}</td>
-          <td>{{ item.bookQuantity }}</td>
+          <td>
+    <button (click)="decreaseQuantity(item.id)">−</button>
+    {{item.quantity || 1}}
+    <button (click)="increaseQuantity(item.id)">+</button>
+  </td>
+  <td>{{item.bookPrice * (item.quantity || 1)}}</td>
+          <td>{{ item.quantity }}</td>
           <td><button class="btn btn-danger btn-sm" (click)="removeFromCart(i)">Remove</button></td>
         </tr>
       </tbody>
