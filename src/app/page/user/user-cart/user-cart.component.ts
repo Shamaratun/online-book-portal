@@ -14,7 +14,7 @@ import { UserCartService } from './service/user-cart.service';
 export class UserCartComponent implements OnInit {
    cartItems: any[] = [];
   totalPrice: number = 0;
-  userId: number =1; // Replace with dynamic user ID from login if available
+  userId: number =  Number(localStorage.getItem('id')); // Replace with dynamic user ID from login if available
 
   constructor(private orderService: UserCartService, private router: Router) {}
 

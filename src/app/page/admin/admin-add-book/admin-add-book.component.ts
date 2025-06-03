@@ -9,7 +9,7 @@ import { UserService } from '../../user/user-dashboard/service/user.service';
 
 @Component({
   selector: 'app-admin-add-book',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,NgFor],
   templateUrl: './admin-add-book.component.html',
   styleUrl: './admin-add-book.component.css',
 })
