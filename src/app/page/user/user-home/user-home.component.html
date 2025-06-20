@@ -3,7 +3,9 @@
     <div class="col-md-4 mb-4" *ngFor="let book of books">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
+          <img src="{{ book.bookImageUrl }}" class="card-img-top" alt="Book Image">
           <h5 class="card-title">{{ book.bookName }}</h5>
+          <strong>ISBN:</strong> {{ book.authorNames }}<br />
           <h6 class="card-subtitle mb-2 text-muted">Category: {{ book.bookCategory }}</h6>
           <p class="card-text">
             <strong>ISBN:</strong> {{ book.bookIsbnNumber }}<br />

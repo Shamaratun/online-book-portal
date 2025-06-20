@@ -6,10 +6,11 @@ import { AddBook, Book } from '../../../model/class';
 import { AddBookService } from './service/add-book.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../user/user-dashboard/service/user.service';
+import { AddAuthorService } from '../admin-add-author/service/add-author.service';
 
 @Component({
   selector: 'app-admin-add-book',
-  imports: [FormsModule, CommonModule,NgFor],
+  imports: [FormsModule, CommonModule, NgFor],
   templateUrl: './admin-add-book.component.html',
   styleUrl: './admin-add-book.component.css',
 })
@@ -18,19 +19,28 @@ export class AdminAddBookComponent {
   books: AddBook[] = [];
   getBooks: Book[] = [];
   editingIndex: number | null = null;
+  authors: any;
 
   constructor(
     private addBookService: AddBookService,
+    private addAuthorService: AddAuthorService,
     private router: Router,
     private bookService: UserService
   ) { }
 
   ngOnInit(): void {
- 
+    this.getAllAuthors();
     this.loadBooks()
   }
 
-  trackByBookId(index: number, book: AddBook): number {
+  getAllAuthors() {
+    this.addAuthorService.getAllAuthors().subscribe({
+      next: (data) => (this.authors = data),
+      error: (err) => console.error('Failed to load authors:', err),
+    });
+  }
+
+  trackByBookId(index: number, book: Book): number {
     return book.id;
   }
 
@@ -76,7 +86,7 @@ export class AdminAddBookComponent {
 
 
   onSubmit(): void {
- 
+
 
     if (this.editingBook && this.editingIndex !== null) {
       // Update existing book
@@ -91,19 +101,19 @@ export class AdminAddBookComponent {
         }
       });
     } else {
-      
-   this.addBookService.addBook(this.book).subscribe({
-    next: (res) => {
-      console.log('Book added:', res);
-      this.loadBooks();
-      this.closeModal();
-    },
-    error: (err) => {
-      console.error('Error adding book:', err);
-      alert('Failed to add book. Please check all fields and try again.');
+
+      this.addBookService.addBook(this.book).subscribe({
+        next: (res) => {
+          console.log('Book added:', res);
+          this.loadBooks();
+          this.closeModal();
+        },
+        error: (err) => {
+          console.error('Error adding book:', err);
+          alert('Failed to add book. Please check all fields and try again.');
+        }
+      });
     }
-  });
-}
   }
   openModal(): void {
     const modal = new Modal(document.getElementById('bookModal')!);

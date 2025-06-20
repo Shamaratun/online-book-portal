@@ -34,7 +34,15 @@ authors: Author[] = [];
   ngOnInit(): void {
     this.loadAuthors();
   }
-
+getAuthorNamesByIds(ids: string): string {
+  if (!ids) return '';
+  const idArray = ids.split(',').map(id => id.trim());
+  const names = idArray.map(id => {
+    const author = this.authors.find((a: any) => a.authorId == id);
+    return author ? author.authorName : `Unknown (${id})`;
+  });
+  return names.join(', ');
+}
   // Load all authors from server
   loadAuthors(): void {
     this.addAuthorService.getAllAuthors().subscribe({

@@ -2,20 +2,21 @@ import { Component } from '@angular/core';
 import { UserService } from '../../../user/user-dashboard/service/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../../../model/user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-list',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })
 export class UserListComponent {
-   users: User[] = [];
+  users: User[] = [];
   editingUser: boolean = false;
   editingIndex: number | null = null;
   user: User = new User(); // Make sure your User model has a default constructor or fields are initialized
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.loadUsers();

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-@Injectable({
+@Injectable({ 
   providedIn: 'root'
 })
 export class AddBookService {
@@ -10,7 +10,8 @@ export class AddBookService {
   private addBookUrl = 'http://localhost:8082/api/admin/add/book';
   private deleteBookUrl = 'http://localhost:8082/api/admin/delete/book';
   private editBookUrl = 'http://localhost:8082/api/admin/update/book';
-  private getAllBookUrl = 'http://localhost:8082/api/user/get/all/books';
+  private getAllBookUrl = 'http://localhost:8082/api/admin/books/withAuthor';
+
 
   constructor(private http: HttpClient) { }
 

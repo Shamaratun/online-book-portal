@@ -26,29 +26,22 @@
             <input type="number" id="bookIsbnNumber" name="bookIsbnNumber" [(ngModel)]="book.bookIsbnNumber"
               class="form-control" placeholder="Enter ISBN number" required />
           </div>
-          <!-- <div class="col-md-6">
-            <label for="image" class="form-label fw-semibold">IMAGE URL</label>
-              
-            <input
-              type="text"
-              step="0.01"
-              id="image"
-              name="image"
-              [(ngModel)]="b"
-              class="form-control"
-              placeholder="Enter image URL"
-              required
-            />
-          </div> -->
-          <div class="col-md-6">
-            <label for="authorName" class="form-label fw-semibold">AUTHOR NAMES(comma separated)</label>
-            <input type="text" id="authorName" name="authorName" [(ngModel)]="book.authorName"
-              class="form-control" placeholder="Enter Author Name" required />
-          </div>
+         
 
           <div class="mb-3">
-            <label for="image" class="form-label">Image URL:</label>
-            <input type="text" id="image" [(ngModel)]="book.bookImageUrl" name="bookImageUrl" class="form-control" />
+            <label for="bookAuthorIds" class="form-label">AUTHOR NAMES(comma separated):</label>
+            <select id="bookAuthorIds" [(ngModel)]="book.authorNames" name="bookAuthorIds" required class="form-select">
+              <option value="" disabled selected>Select Author</option>
+              <option *ngFor="let author of authors" [value]="author.authorId">{{author.authorId}}-{{author.authorName}} </option>
+            </select>
+          </div>
+ 
+
+
+          <div class="mb-3">
+            <label for="image" class="form-label fw-semibold">Image URL:</label>
+            <input type="text" id="image" [(ngModel)]="book.bookImageUrl" name="bookImageUrl" required
+              class="form-control" />
 
           </div>
           <!-- Price -->
@@ -79,38 +72,18 @@
               class="form-control" required />
           </div>
           <!-- Author name -->
-          
-          <!-- Author IDs -->
-          <!-- <div class="col-md-6">
-            <label for="bookAuthorIds" class="form-label fw-semibold">AUTHOR IDs (comma separated)</label>
-            <input type="text" id="bookAuthorIds" name="bookAuthorIds" [(ngModel)]="book.bookAuthorIdsString"
-              class="form-control" placeholder="e.g., 1,2,3" required />
-          </div> -->
 
-          <!-- Optional Image Upload (Disabled for now) -->
-          <!--
-          <div class="col-md-6">
-            <label for="bookImage" class="form-label fw-semibold">BOOK IMAGE</label>
-            <input
-              type="file"
-              id="bookImage"
-              name="bookImage"
-              (change)="onFileSelected($event)"
-              class="form-control"
-              accept="image/*"
-            />
+
+
+          <div class="modal-footer bg-light rounded-bottom-4">
+            <button type="submit" class="btn btn-success px-4" [disabled]="!bookForm.form.valid">
+              {{ editingBook ? "Update Book" : "Add Book" }}
+            </button>
+            <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">
+              Cancel
+            </button>
           </div>
-          -->
         </div>
-      </div>
-
-      <div class="modal-footer bg-light rounded-bottom-4">
-        <button type="submit" class="btn btn-success px-4" [disabled]="!bookForm.form.valid">
-          {{ editingBook ? "Update Book" : "Add Book" }}
-        </button>
-        <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">
-          Cancel
-        </button>
       </div>
     </form>
   </div>
@@ -139,11 +112,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let b of getBooks; book: trackByBookId" class="text-center align-middle">
+      <tr *ngFor="let b of getBooks; trackBy: trackByBookId" class="text-center align-middle">
         <td>{{ b.id }}</td>
         <td>{{ b.bookName }}</td>
         <td>{{ b.bookIsbnNumber }}</td>
-        <td>{{ b.authorName}}</td>
+        <td>{{ b.authorNames }}</td>
         <td>
           <img [src]="b.bookImageUrl" alt="Book Image" width="80" height="100" *ngIf="b.bookImageUrl; else noImage" />
           <ng-template #noImage><span class="text-muted">No image</span></ng-template>
@@ -152,7 +125,7 @@
         <td>{{ b.bookRating }}</td>
         <td>{{ b.bookCategory }}</td>
         <!-- <td>{{ b.bookQuantity }}</td>
-        <td>{{ b.createdAt }}</td> -->
+  <td>{{ b.createdAt }}</td> -->
         <td>
           <button class="btn btn-sm btn-primary me-1" (click)="openEditModal(b)">
             Edit
